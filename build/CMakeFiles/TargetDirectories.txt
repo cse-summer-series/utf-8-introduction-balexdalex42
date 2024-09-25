@@ -1,0 +1,3 @@
+C:/Users/alext/OneDrive/Desktop/Projects_UCSD/SummerSeries/week2_assignment/build/CMakeFiles/characters.dir
+C:/Users/alext/OneDrive/Desktop/Projects_UCSD/SummerSeries/week2_assignment/build/CMakeFiles/edit_cache.dir
+C:/Users/alext/OneDrive/Desktop/Projects_UCSD/SummerSeries/week2_assignment/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/alext/OneDrive/Desktop/Projects_UCSD/SummerSeries/week2_assignment/build",
+  "command": "C:\\mingw64\\bin\\gcc.exe   -g -o CMakeFiles\\characters.dir\\characters.c.obj -c C:\\Users\\alext\\OneDrive\\Desktop\\Projects_UCSD\\SummerSeries\\week2_assignment\\characters.c",
+  "file": "C:/Users/alext/OneDrive/Desktop/Projects_UCSD/SummerSeries/week2_assignment/characters.c",
+  "output": "CMakeFiles/characters.dir/characters.c.obj"
+}
+]

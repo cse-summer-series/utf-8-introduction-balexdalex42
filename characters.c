@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+//e -> 1110 
 unsigned int num_bytes(char b) {
   //    0xxxxxxx        1xxxxxxx
   //  & 10000000        10000000
@@ -52,10 +52,34 @@ unsigned int utf8_strlen(char* unicode) {
  *   bytes_for("成龙", 3) -> -1
  */
 unsigned int bytes_for(char* unicode, unsigned int n) {
-  return 0;
+  int totalBytes = 0;
+  for(int i = 0; i < n; i++)
+  {
+    if(*unicode == '\0')
+      return -1;//for out of bounds case
+    int numBytes = num_bytes(*unicode);
+    totalBytes += numBytes * (numBytes > 0); //takes care of -1 return value
+    unicode += numBytes + (numBytes == 0);//if numBytes is 0, means -1 returned, meaning we should stull go to "nxt" char
+  }
+  return totalBytes;
+}
+
+void get_test_args(int i, int* index, int* numChars)
+{
+  int x, y, z,f1, f2, g1, g2;
+  x = i >> 2;
+  y = (i >> 1) & 0b1;
+  z = i & 0b1;
+  f1 = (x + (y*z)) > 0; //x + yz + x'y'z, m3, m4, m5, d6, d7
+  f2 = (!x*!y*z) > 0; //x'y'z, m1, d6, d7
+  g1 = ((!x + z)*(!y+!z)) > 0; // (x' + z)(y' + z') = x'z' + y'z, m0, m1, m2, m5, d6, d7
+  g2 = (!z*(x+y)) > 0; // y(x+z') = xy + yz', m2, m4, d6, d7
+  *index = f1 * 2 + f2;
+  *numChars = 1 + g1*2 + g2;//the binary expression only can return 0-3, but the numChar arguments fo from 1-4, thus offset by 1
 }
 
 int main(int argc, char** argv) {
+  char wordBank[3][15] = {"José", "Ülo", "成龙"};
   if(argc < 2) {
     printf("Try running with ./welcome your-name\n");
     return 1;
@@ -71,8 +95,16 @@ int main(int argc, char** argv) {
     unsigned char letter = name[i];
     printf("%d(%x) ", letter, letter);
   }
-  printf("\n");
+  printf("\nTESTING bytes_for()\n__________________\n");
+  int numBytes, index, numChars;
+  for(int i = 0; i < 6; i++) //i -> 0b000 - 0b101
+  {
+    get_test_args(i, &index, &numChars);
+    numBytes = bytes_for(wordBank[index], numChars);
+    printf("bytes_for(\"%s\", %d) -> %d)\n", wordBank[index], numChars, numBytes);
+  }
 
+  printf("Goodbye!!!!\n");
   return 0;
 }
 
